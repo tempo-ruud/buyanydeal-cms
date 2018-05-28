@@ -11,6 +11,18 @@
 |
 */
 
+Route::group([
+    'prefix' => 'buymin',
+    'middleware' => ['admin'],
+    'as' => 'admin.'
+], function () {
+    Route::namespace('Admin')->group(function () {
+        Route::namespace('Dashboard')->group(function () {
+            Route::get('/', 'DashboardController@index')->name('dashboard');
+        });
+    });
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
