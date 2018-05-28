@@ -12,4 +12,9 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .copy('resources/assets/js/admin/require.min.js', 'public/js/require.min.js')
+    .copy('resources/assets/js/admin/dashboard.js', 'public/js/dashboard.js')
+    .copy('resources/assets/js/admin/core.js', 'public/js/core.js')
+    .copyDirectory('resources/assets/js/admin/vendors', 'public/js/vendors')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/admin.scss', 'public/css');

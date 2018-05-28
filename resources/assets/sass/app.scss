@@ -1,14 +1,79 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
-// Variables
-@import "variables";
+@import url(//fonts.googleapis.com/earlyaccess/notokufiarabic.css);
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "front/_variables";
+@import "~bootstrap/scss/bootstrap";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+// Partials
+@import "front/partials/navbar";
+
+@import "front/rtl";
+
+:root {
+  --primary: #2461D1;
+  --secondary: #F9983B;
+  --font-family-sans-serif: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-feature-settings: "pnum";
+  font-variant-numeric: proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.app-header {
+  height: 70px;
+  padding: 10px 0;
+  // .logo-wrapper {
+  //   display: inline-block;
+  //   height: 50px;
+  //   margin-right: 10px;
+  //   position: relative;
+  //   text-align: left;
+  //   vertical-align: middle;
+  //   white-space: nowrap;
+  // }
+
+  .outer-wrapper {
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .inner-wrapper {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .logo-wrapper {
+    -ms-flex: 0 0 250px;
+    flex: 0 0 250px;
+  }
+  .logo {
+    font-size: 28px;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+  .search-wrapper {
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-order: initial;
+    order: 0;
+    .form-inline {
+      margin: 0 20px;
+    }
+  }
+  .language-wrapper {
+  }
 }
