@@ -17,8 +17,17 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::namespace('Admin')->group(function () {
+        Route::namespace('Catalog')->group(function () {
+            Route::resource('attribute', 'AttributeController');
+            Route::resource('attributegroup', 'AttributeGroupController');
+            Route::resource('category', 'CategoryController');
+            Route::resource('product', 'ProductController');
+        });
         Route::namespace('Dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
+        });
+        Route::namespace('Language')->group(function () {
+            Route::resource('language', 'LanguageController');
         });
     });
 });
