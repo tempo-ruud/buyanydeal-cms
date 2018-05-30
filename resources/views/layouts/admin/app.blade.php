@@ -15,5 +15,6 @@
     </div>
     @include('layouts.admin.includes.footer')
 </div>
+@yield('footerjs')
 </body>
 </html>

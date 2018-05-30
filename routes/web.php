@@ -23,6 +23,9 @@ Route::group([
             Route::resource('category', 'CategoryController');
             Route::resource('product', 'ProductController');
         });
+        Route::namespace('Cms')->group(function () {
+            Route::resource('page', 'PageController');
+        });
         Route::namespace('Dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
         });
@@ -34,4 +37,14 @@ Route::group([
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group([
+    'as' => 'front.'
+], function () {
+    Route::namespace('Front')->group(function () {
+        Route::namespace('Cms')->group(function () {
+            Route::get("{slug}", 'PageController@getCms')->name('front.cms.slug');
+        });
+    });
 });
