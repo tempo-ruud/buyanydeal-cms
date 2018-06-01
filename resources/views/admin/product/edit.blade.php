@@ -2,237 +2,136 @@
 
 @section('content')
 
-    <div id="accordion">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Product Information
-                    </button>
-                </h5>
+    @include('layouts.errors-and-messages')
+
+    <form action="{{ route('admin.product.update', $product->id) }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="hidden" name="_method" value="put">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="infoHeading">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" data-toggle="collapse" data-target="#productInfo" aria-expanded="true" aria-controls="productInfo">
+                            Product Information
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="productInfo" class="collapse show" aria-labelledby="infoHeading" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $product->name ?: old('name') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="slug" class="form-label">Slug</label>
+                            <input type="text" class="form-control" id="slug" name="slug" value="{{ $product->slug ?: old('slug') }}" required>
+                        </div>
+                        @include('admin.shared.status-select', ['status' => $product->is_active])
+                        @include('admin.shared.stock-select', ['stock' => $product->in_stock])
+                        <div class="form-group">
+                            <label for="brand" class="form-label">Brand</label>
+                            <input type="text" class="form-control" id="brand" name="brand" value="{{ $product->brand ?: old('brand') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="sku" class="form-label">SKU</label>
+                            <input type="text" class="form-control" id="sku" name="sku" value="{{ $product->sku ?: old('sku') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="form-label">Description</label>
+                            <textarea class="form-control ckeditor" name="content" id="content" rows="6">{{ $product->content ?: old('content') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="url" class="form-label">URL</label>
+                            <input type="text" class="form-control" id="url" name="url" value="{{ $product->url ?: old('url') }}" required>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="name" name="name" value="Product Name">
-                            </div>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="name" name="name" value="Product Name">
-                            </div>
+            <div class="card">
+                <div class="card-header" id="priceHeading">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#productPrice" aria-expanded="false" aria-controls="productPrice">
+                            Product Prices
+                        </a>
+                    </h5>
+                </div>
+                <div id="productPrice" class="collapse" aria-labelledby="priceHeading" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="currency" class="form-label">Currency</label>
+                            <input id="currency" name="currency" type="text" class="form-control" value="{{ $product->currency ?: old('currency') }}" required>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">SKU</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="name" name="sku" value="SKU">
-                            </div>
+                        <div class="form-group">
+                            <label for="original_price" class="form-label">Original Price</label>
+                            <input id="original_price" name="original_price" type="text" class="form-control" value="{{ $product->original_price ?: old('original_price') }}" required>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
+                        <div class="form-group">
+                            <label for="special_price" class="form-label">Special Price</label>
+                            <input id="special_price" name="special_price" type="text" class="form-control" value="{{ $product->special_price ?: old('special_price') }}">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Brand</label>
-                            <div class="col-sm-5">
-                                <select class="custom-select">
-                                    <option value="EQUALS">Equals</option>
-                                    <option value="NOT_EQUALS">Not equals</option>
-                                    <option value="HAS_KEY">Has key</option>
-                                    <option value="NOT_HAS_KEY">Not has key</option>
-                                    <option value="HAS_VALUE">Has value</option>
-                                    <option value="NOT_HAS_VALUE">Not has value</option>
-                                    <option value="IS_EMPTY">Is empty</option>
-                                    <option value="NOT_EMPTY">Is not empty</option>
-                                    <option value="GREATER_THAN">Greater than</option>
-                                    <option value="LESS_THAN" selected="">Less than</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="delivery_time" class="form-label">Delivery Time</label>
+                            <input id="delivery_time" name="delivery_time" type="text" class="form-control" value="{{ $product->delivery_time ?: old('delivery_time') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_cost" class="form-label">Delivery Cost</label>
+                            <input id="delivery_cost" name="delivery_cost" type="text" class="form-control" value="{{ $product->delivery_cost ?: old('delivery_cost') }}">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Images
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="file-input file-input-ajax-new">
-                        <div class="file-preview ">
-                            <button type="button" class="close fileinput-remove" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>    <div class=" file-drop-zone"><div class="file-drop-zone-title">Drag &amp; drop files here …</div>
-                                <div class="file-preview-thumbnails">
-                                </div>
-                                <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                                <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                            </div>
-                        </div>
-                        <div class="kv-upload-progress kv-hidden" style="display: none;">
-                            <div class="progress">
-                                <div class="progress-bar bg-success progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                    0%
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="input-group file-caption-main">
-                            <div class="file-caption form-control kv-fileinput-caption" tabindex="500">
-                                <span class="file-caption-icon"></span>
-                                <input class="file-caption-name" onkeydown="return false;" onpaste="return false;" placeholder="Select files...">
-                            </div>
-                            <div class="input-group-btn">
-                                <button type="button" tabindex="500" title="Clear selected files" class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button"><i class="fa fa-trash"></i>  <span class="hidden-xs">Remove</span></button>
-                                <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default btn-secondary kv-hidden fileinput-cancel fileinput-cancel-button"><i class="fa fa-ban"></i>  <span class="hidden-xs">Cancel</span></button>
-                                <a href="/file-upload-batch/2" tabindex="500" title="Upload selected files" class="btn btn-default btn-secondary fileinput-upload fileinput-upload-button"><i class="fa fa-upload"></i>  <span class="hidden-xs">Upload</span></a>
-                                <div tabindex="500" class="btn btn-primary btn-file"><i class="fa fa-folder-open"></i>  <span class="hidden-xs">Browse …</span><input id="input-fa" name="inputfa[]" type="file" multiple="" class=""></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Shops
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Products to shops</h3>
-                            <div class="col-lg-3 ml-auto">
-                                <form class="input-icon my-3 my-lg-0">
-                                    <input type="search" class="form-control header-search" placeholder="Search…" tabindex="1">
-                                    <div class="input-icon-addon">
-                                        <i class="fe fe-search"></i>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>ID.</th>
-                                        <th>Shop</th>
-                                        <th>SKU</th>
-                                        <th>Price</th>
-                                        <th>Special price</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>101</td>
-                                        <td>Sprii.com</td>
-                                        <td>1234567890123</td>
-                                        <td>AED 200</td>
-                                        <td>AED 100</td>
-                                        <td><span class="status-icon bg-success"></span> Enabled</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="custom-controls-stacked">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="option1" checked="">
-                                                        <span class="custom-control-label"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingTFour">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        SEO
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingTFour" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Page Title</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="name" name="name" value="Product Name">
-                            </div>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="name" name="name" value="Product Name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Keywords</label>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
-                            <div class="col-sm-5">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+            <div class="card">
+                <div class="card-header" id="imageHeading">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#productImage" aria-expanded="false" aria-controls="productImage">
+                            Images
+                        </a>
+                    </h5>
+                </div>
+                <div id="productImage" class="collapse" aria-labelledby="imageHeading" data-parent="#accordion">
+                    <div class="card-body">
+                        @if(isset($product->image_src))
+                            <div>
+                                <img src="{{ asset("storage/$product->image_src") }}" alt="" class="img-responsive"> <br />
+                                <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->image_src, 10)]) }}" class="btn btn-danger btn-sm">Remove image?</a><br />
+                            </div>
+                        @endif
+                        <div class="form-group">
+                            <label for="image_src" class="form-label">Product Image</label>
+                            <input id="image_src" name="image_src" type="file" class="form-control" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingTFour">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            SEO
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingTFour" data-parent="#accordion">
+                    <div class="card-body">
+                        @include('admin.shared.meta-edit', ['meta_title' => $product->meta_title, 'meta_description' => $product->meta_description, 'meta_keywords' => $product->meta_keywords])
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <div class="d-flex">
+                    <a href="{{ route('admin.product.index') }}" class="btn btn-link">Cancel</a>
+                    <button type="submit" class="btn btn-primary ml-auto">Save Product</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+@endsection
+
+@section('footerjs')
+    <script src="{{ asset('//cdn.ckeditor.com/4.8.0/standard/ckeditor.js') }}"></script>
 @endsection

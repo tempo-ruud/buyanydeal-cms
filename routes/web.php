@@ -22,6 +22,8 @@ Route::group([
             Route::resource('attributegroup', 'AttributeGroupController');
             Route::resource('category', 'CategoryController');
             Route::resource('product', 'ProductController');
+            Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
+            Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
         });
         Route::namespace('Cms')->group(function () {
             Route::resource('page', 'PageController');
@@ -45,6 +47,9 @@ Route::group([
     Route::namespace('Front')->group(function () {
         Route::namespace('Cms')->group(function () {
             Route::get("{slug}", 'PageController@getCms')->name('front.cms.slug');
+        });
+        Route::namespace('Product')->group(function () {
+            Route::get("{slug}", 'ProductController@getProduct')->name('front.product.slug');
         });
     });
 });
