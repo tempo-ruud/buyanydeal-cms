@@ -1,2 +1,10 @@
-<h1>{{ $product->name }}</h1>
-{!! $product->content !!}
+@extends('layouts.front.app')
+
+@section('content')
+
+    Name: {{ $product->name }}<br/>
+    Description: {!! $product->content !!}<br/>
+    Sku: {{ $product->sku }}<br/>
+    Currency: {{ $product->currency }}<br/>
+
+@endsection

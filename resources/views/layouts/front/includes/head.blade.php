@@ -1,0 +1,1 @@
+<link href="{{ url('css/app.css') }}" rel="stylesheet">
