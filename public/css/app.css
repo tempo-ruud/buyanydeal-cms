@@ -10434,6 +10434,87 @@ a.text-dark:focus {
   outline: 0;
 }
 
+footer {
+  font-size: 14px;
+  margin-top: 40px;
+  padding-top: 40px;
+  /*ul*/
+}
+
+footer .block-title {
+  display: block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+footer .leaf {
+  width: 50%;
+  float: left;
+}
+
+footer ul {
+  padding: 0;
+  /*li*/
+}
+
+footer ul li {
+  list-style: none;
+  line-height: 26px;
+}
+
+footer ul li a {
+  color: var(--gray);
+}
+
+footer .newsletter {
+  margin-bottom: 20px;
+}
+
+footer .newsletter .form-control {
+  background: #FEFEFE;
+  border: 1px solid #EBEBEB;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 8px 12px 0 rgba(195, 195, 195, 0.5);
+          box-shadow: 0 8px 12px 0 rgba(195, 195, 195, 0.5);
+  height: 40px;
+  width: 100%;
+}
+
+footer .newsletter .btn {
+  background: -webkit-gradient(linear, right top, left top, color-stop(3%, #F9983B), to(#FFAF4E));
+  background: linear-gradient(-90deg, #F9983B 3%, #FFAF4E 100%);
+  right: 0;
+  border: 0;
+  border-radius: 55px;
+  height: 40px;
+  width: 60px;
+  color: white;
+  font-size: 20px;
+}
+
+footer .social li {
+  display: inline;
+}
+
+footer .footer-bottom {
+  border-top: 1px solid var(--lighter-gray);
+  padding: 20px 0 5px 0;
+  margin-top: 20px;
+}
+
+footer .footer-bottom li {
+  display: inline;
+  margin-right: 15px;
+}
+
+/*footer*/
+
+@media (max-width: 576px) {
+  footer {
+    text-align: center;
+  }
+}
+
 .rtl {
   direction: rtl;
   font-family: 'Noto Kufi Arabic', sans-serif;
@@ -11688,6 +11769,9 @@ a.text-dark:focus {
   --primary: #2461D1;
   --secondary: #F9983B;
   --font-family-sans-serif: 'Poppins', sans-serif;
+  --lighter-gray: #DFDFDF;
+  --gray: #4A4A4A;
+  --light-gray: #F3F3F3;
 }
 
 body {
