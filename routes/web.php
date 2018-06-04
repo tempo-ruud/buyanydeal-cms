@@ -31,8 +31,11 @@ Route::group([
         Route::namespace('Dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
         });
+        Route::namespace('Import')->group(function () {
+            Route::resource('import', 'ImportController');
+        });
         Route::namespace('Language')->group(function () {
-            Route::resource('language', 'LanguageController');
+            Route::resource('language', 'ImportController');
         });
     });
 });

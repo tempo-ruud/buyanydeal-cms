@@ -6,28 +6,28 @@
  * Time: 19:48
  */
 
-namespace App\Http\Controllers\Admin\Language;
+namespace App\Http\Controllers\Admin\Import;
 
 
-use App\Cms\Languages\Interfaces\RepositoryInterface;
-use App\Cms\Languages\Repositories\Repository;
-use App\Cms\Languages\Requests\CreateRequest;
-use App\Cms\Languages\Requests\UpdateRequest;
+use App\Cms\Imports\Interfaces\ImportRepositoryInterface;
+use App\Cms\Imports\Repositories\ImportRepository;
+use App\Cms\Imports\Requests\CreateRequest;
+use App\Cms\Imports\Requests\UpdateRequest;
 
 use App\Http\Controllers\Controller;
 
-class LanguageController extends Controller
+class ImportController extends Controller
 {
 
-    private $languageRepo;
+    private $importRepo;
 
     /**
      * ImportController constructor.
-     * @param RepositoryInterface $languageRepository
+     * @param ImportRepositoryInterface $importRepository
      */
-    public function __construct(RepositoryInterface $languageRepository)
+    public function __construct(ImportRepositoryInterface $importRepository)
     {
-        $this->languageRepo = $languageRepository;
+        $this->importRepo = $importRepository;
     }
 
     /**
@@ -37,8 +37,8 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        return view('admin.language.index',
-            ['languages' => $this->languageRepo->listLanguages('id', 'asc')]);
+        return view('admin.import.index',
+            ['imports' => $this->importRepo->listImports('id', 'asc')]);
     }
 
     /**
@@ -48,20 +48,21 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        return view('admin.language.create');
+        return view('admin.import.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param CreateRequest $request
      * @return Response
      */
     public function store(CreateRequest $request)
     {
-        $this->languageRepo->createLanguage($request->all());
+        $this->importRepo->createImport($request->all());
 
         $request->session()->flash('message', 'Create successful');
-        return redirect()->route('admin.language.index');
+        return redirect()->route('admin.import.index');
     }
 
     /**
@@ -72,25 +73,25 @@ class LanguageController extends Controller
      */
     public function edit(int $id)
     {
-        return view('admin.language.edit', ['language' => $this->languageRepo->findLanguageById($id)]);
+        return view('admin.import.edit', ['import' => $this->importRepo->findImportById($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * * @param  UpdateRequest $request
+     * @param  UpdateRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, $id)
     {
-        $language = $this->languageRepo->findLanguageById($id);
+        $import = $this->importRepo->findImportById($id);
 
-        $update = new Repository($language);
-        $update->updateLanguage($request->all());
+        $update = new ImportRepository($import);
+        $update->updateImport($request->all());
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.language.edit', $id);
+        return redirect()->route('admin.import.edit', $id);
     }
 
     /**
@@ -101,9 +102,9 @@ class LanguageController extends Controller
      */
     public function destroy(int $id)
     {
-        $this->languageRepo->delete($id);
+        $this->importRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.language.index');
+        return redirect()->route('admin.import.index');
     }
 }

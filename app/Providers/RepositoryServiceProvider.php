@@ -6,6 +6,8 @@ use App\Cms\Catalog\Repositories\CategoryRepository as CategoryRepository;
 use App\Cms\Catalog\Interfaces\RepositoryInterface as CategoryRepositoryInterface;
 use App\Cms\Cms\Repositories\PageRepository as CmsRepository;
 use App\Cms\Cms\Interfaces\RepositoryInterface as CmsRepositoryInterface;
+use App\Cms\Imports\Repositories\ImportRepository as ImportRepository;
+use App\Cms\Imports\Interfaces\ImportRepositoryInterface as ImportRepositoryInterface;
 use App\Cms\Languages\Repositories\Repository as LanguageRepository;
 use App\Cms\Languages\Interfaces\RepositoryInterface as LanguageRepositoryInterface;
 use App\Cms\Catalog\Repositories\ProductRepository as ProductRepository;
@@ -24,6 +26,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CmsRepositoryInterface::class,
             CmsRepository::class
+        );
+        $this->app->bind(
+            ImportRepositoryInterface::class,
+            ImportRepository::class
         );
         $this->app->bind(
             LanguageRepositoryInterface::class,
