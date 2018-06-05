@@ -21,6 +21,7 @@
                 <label for="feed_url" class="form-label">Feed URL</label>
                 <input id="feed_url" name="feed_url" type="text" class="form-control" value="{{ $import->feed_url ?: old('feed_url') }}">
             </div>
+            @include('admin.shared.status-select', ['status' => $category->is_active])
         </div>
         <div class="card-footer text-right">
             <div class="d-flex">

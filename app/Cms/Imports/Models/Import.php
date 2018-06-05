@@ -20,7 +20,8 @@ class Import extends Model
     protected $fillable = [
         'network',
         'company',
-        'feed_url'
+        'feed_url',
+        'is_active'
     ];
 
     /**

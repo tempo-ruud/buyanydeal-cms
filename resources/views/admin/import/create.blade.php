@@ -20,6 +20,13 @@
                 <label for="feed_url" class="form-label">Feed URL</label>
                 <input id="feed_url" name="feed_url" type="text" class="form-control" value="">
             </div>
+            <div class="form-group">
+                <label for="is_active" class="form-label">Status</label>
+                <select id="is_active" name="is_active" class="form-control custom-select">
+                    <option value="1">Enabled</option>
+                    <option value="0">Disabled</option>
+                </select>
+            </div>
         </div>
         <div class="card-footer text-right">
             <div class="d-flex">

@@ -23,7 +23,8 @@ class CreateRequest extends FormRequest
         return [
             'network' => 'required',
             'company' => 'required',
-            'feed_url' => 'required'
+            'feed_url' => 'required',
+            'is_active' => 'required'
         ];
     }
 }

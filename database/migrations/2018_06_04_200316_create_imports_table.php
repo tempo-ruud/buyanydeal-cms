@@ -18,6 +18,7 @@ class CreateImportsTable extends Migration
             $table->string('network');
             $table->string('company');
             $table->string('feed_url');
+            $table->integer('is_active')->default(0);
             $table->timestamps();
         });
     }
