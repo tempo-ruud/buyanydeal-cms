@@ -6,12 +6,10 @@ use App\Cms\Brands\Repositories\BrandRepository;
 use App\Cms\Brands\Interfaces\BrandRepositoryInterface;
 use App\Cms\Catalog\Repositories\CategoryRepository as CategoryRepository;
 use App\Cms\Catalog\Interfaces\RepositoryInterface as CategoryRepositoryInterface;
-use App\Cms\Cms\Repositories\PageRepository as CmsRepository;
-use App\Cms\Cms\Interfaces\RepositoryInterface as CmsRepositoryInterface;
-use App\Cms\Languages\Repositories\Repository as LanguageRepository;
-use App\Cms\Languages\Interfaces\RepositoryInterface as LanguageRepositoryInterface;
 use App\Cms\Catalog\Repositories\ProductRepository as ProductRepository;
 use App\Cms\Catalog\Interfaces\ProductRepositoryInterface as ProductRepositoryInterface;
+use App\Cms\Shops\Repositories\ShopRepository;
+use App\Cms\Shops\Interfaces\ShopRepositoryInterface;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -38,6 +36,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class
+        );
+        $this->app->bind(
+            ShopRepositoryInterface::class,
+            ShopRepository::class
         );
     }
 }

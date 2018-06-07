@@ -25,7 +25,7 @@ class BrandController extends Controller
     private $brandRepo;
 
     /**
-     * BrandController constructor.
+     * ShopController constructor.
      * @param BrandRepositoryInterface $brandRepository
      */
     public function __construct(BrandRepositoryInterface $brandRepository)
