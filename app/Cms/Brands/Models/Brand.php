@@ -2,31 +2,34 @@
 /**
  * Created by PhpStorm.
  * User: ruudvanengelenhoven
- * Date: 29/05/2018
- * Time: 19:48
+ * Date: 06/06/2018
+ * Time: 07:50
  */
 
-namespace App\Cms\Cms\Models;
+namespace App\Cms\Brands\Models;
 
-use App\Cms\Languages\Models\Language;
+use App\Cms\Products\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CmsPage extends Model
+class Brand extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'content_heading',
-        'content',
-        'is_active',
+        'name',
+        'description',
+        'cover',
+        'logo',
+        'slug',
         'meta_title',
         'meta_description',
         'meta_keywords',
-        'slug'
+        'status'
     ];
 
     /**
@@ -35,4 +38,9 @@ class CmsPage extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

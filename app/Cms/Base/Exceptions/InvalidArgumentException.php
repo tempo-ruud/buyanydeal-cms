@@ -6,7 +6,7 @@
  * Time: 19:48
  */
 
-namespace App\Cms\Cms\Exceptions;
+namespace App\Cms\Base\Exceptions;
 
 use Doctrine\Instantiator\Exception\InvalidArgumentException as DoctrineInvalidArgumentException;
 

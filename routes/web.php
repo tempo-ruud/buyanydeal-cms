@@ -17,6 +17,10 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::namespace('Admin')->group(function () {
+        Route::namespace('Brand')->group(function () {
+            Route::resource('brand', 'BrandController');
+            Route::get('remove-image-brand', 'BrandController@removeImage')->name('brand.remove.image');
+        });
         Route::namespace('Catalog')->group(function () {
             Route::resource('attribute', 'AttributeController');
             Route::resource('attributegroup', 'AttributeGroupController');

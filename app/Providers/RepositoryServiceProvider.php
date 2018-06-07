@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Cms\Brands\Repositories\BrandRepository;
+use App\Cms\Brands\Interfaces\BrandRepositoryInterface;
 use App\Cms\Catalog\Repositories\CategoryRepository as CategoryRepository;
 use App\Cms\Catalog\Interfaces\RepositoryInterface as CategoryRepositoryInterface;
 use App\Cms\Cms\Repositories\PageRepository as CmsRepository;
@@ -17,6 +19,10 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            BrandRepositoryInterface::class,
+            BrandRepository::class
+        );
         $this->app->bind(
             CategoryRepositoryInterface::class,
             CategoryRepository::class
