@@ -8,6 +8,7 @@
 
 namespace App\Cms\Products\Models;
 
+use App\Cms\Brands\Models\Brand;
 use App\Cms\Categories\Models\Category;
 use App\Cms\ProductImages\Models\ProductImage;
 
@@ -21,6 +22,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
+        'brand_id',
         'sku',
         'ean',
         'name',
@@ -40,9 +42,20 @@ class Product extends Model
      */
     protected $hidden = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brands()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     /**

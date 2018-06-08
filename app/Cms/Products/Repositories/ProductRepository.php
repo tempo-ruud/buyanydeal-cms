@@ -2,18 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: ruudvanengelenhoven
- * Date: 29/05/2018
- * Time: 19:48
+ * Date: 06/06/2018
+ * Time: 08:02
  */
 
-namespace App\Cms\Catalog\Repositories;
+namespace App\Cms\Products\Repositories;
 
+use App\Cms\Base\Exceptions\InvalidArgumentException;
+use App\Cms\Base\Exceptions\NotFoundException;
 use App\Cms\Base\Repositories\BaseRepository;
-use App\Cms\Catalog\Exceptions\InvalidArgumentException;
-use App\Cms\Catalog\Exceptions\NotFoundException;
-use App\Cms\Catalog\Interfaces\ProductRepositoryInterface;
-use App\Cms\Catalog\Models\Product;
-use App\Cms\Catalog\Transformations\ProductTransformable;
+
+use App\Cms\Products\Interfaces\ProductRepositoryInterface;
+use App\Cms\Products\Models\Product;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -22,10 +22,8 @@ use Illuminate\Support\Collection;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
-    use ProductTransformable;
-
     /**
-     * OrderStatusRepository constructor.
+     * ShopRepository constructor.
      * @param Product $product
      */
     public function __construct(Product $product)
@@ -35,31 +33,43 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
-     * Create the order status
+     * List all the shops
+     *
+     * @param string $order
+     * @param string $sort
+     * @param array $columns
+     * @return Collection
+     */
+    public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
+    {
+        return $this->all($columns, $order, $sort);
+    }
+
+    /**
+     * Create the product
      *
      * @param array $params
-     * @return Product
-     * @throws InvalidArgumentException
+     * @return Shop
      */
-    public function createProduct(array $params) : Product
+    public function createShop(array $params) : Shop
     {
         try {
-            $product = new Product($params);
-            $product->save();
-            return $product;
+            $shop = new Shop($params);
+            $shop->save();
+            return $shop;
         } catch (QueryException $e) {
             throw new InvalidArgumentException($e->getMessage());
         }
     }
 
     /**
-     * Update the order status
+     * Update the shop
      *
-     * @param array $update
-     * @return Product
-     * @throws InvalidArgumentException
+     * @param array $params
+     * @param int $id
+     * @return bool
      */
-    public function updateProduct(array $params, int $id) : bool
+    public function updateShop(array $params, int $id) : bool
     {
         try {
             return $this->update($params, $id);
@@ -69,9 +79,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
+     * Find the shop by ID
+     *
      * @param int $id
      * @return Product
-     * @throws NotFoundException
      */
     public function findProductById(int $id) : Product
     {
@@ -82,30 +93,34 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
     }
 
+
     /**
-     * @return mixed
+     * @param Shop $shop
+     * @return bool
+     * @throws \Exception
      */
-    public function listProducts(string $order = 'id', string $sort = 'desc') : Collection
+    public function deleteShop(Shop $shop) : bool
     {
-        return $this->model->orderBy($order, $sort)->get();
+        return $this->model->delete();
     }
 
     /**
-     * @param Product $product
+     * @param $file
+     * @param null $disk
      * @return bool
      */
-    public function deleteProduct(Product $product) : bool
+    public function deleteFile(array $file, $disk = null) : bool
     {
-        return $this->delete($product->id);
+        return $this->update(['cover' => null], $file['shop']);
     }
 
     /**
-     * Return the category by using the slug as the parameter
+     * Get the product via slug
      *
      * @param array $slug
-     * @return Product
+     * @return Shop
      */
-    public function findProductBySlug(array $slug) : Product
+    public function findShopBySlug(array $slug) : Shop
     {
         try {
             return $this->findOneByOrFail($slug);
@@ -120,17 +135,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function saveCoverImage(UploadedFile $file) : string
     {
-        return $file->store('products', ['disk' => 'public']);
+        return $file->store('shops', ['disk' => 'public']);
     }
-
-    /**
-     * @param $file
-     * @param null $disk
-     * @return bool
-     */
-    public function deleteFile(array $file, $disk = null) : bool
-    {
-        return $this->update(['image_src' => null], $file['product']);
-    }
-
 }

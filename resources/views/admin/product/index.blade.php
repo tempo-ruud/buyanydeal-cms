@@ -18,13 +18,12 @@
                         <th>Name</th>
                         <th>Sku</th>
                         <th>Brand</th>
-                        <th>Price</th>
-                        <th>Special Price</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
+{{--                @php(dd($products))--}}
                 @foreach ($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
@@ -33,9 +32,7 @@
                         </td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->sku }}</td>
-                        <td>{{ $product->brand }}</td>
-                        <td>{{ $product->original_price }}</td>
-                        <td>{{ $product->special_price }}</td>
+                        <td>{{ $product->brand->name }}</td>
                         <td class="w-1">
                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="post">
                                 {{ csrf_field() }}
