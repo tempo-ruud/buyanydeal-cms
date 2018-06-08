@@ -17,22 +17,16 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::namespace('Admin')->group(function () {
-        Route::namespace('Catalog')->group(function () {
-            Route::resource('attribute', 'AttributeController');
-            Route::resource('attributegroup', 'AttributeGroupController');
-            Route::resource('category', 'CategoryController');
-            Route::resource('product', 'ProductController');
-            Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
-            Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
-        });
-        Route::namespace('Cms')->group(function () {
-            Route::resource('page', 'PageController');
+        Route::namespace('Brand')->group(function () {
+            Route::resource('brand', 'BrandController');
+            Route::get('remove-image-brand', 'BrandController@removeImage')->name('brand.remove.image');
         });
         Route::namespace('Dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
         });
-        Route::namespace('Language')->group(function () {
-            Route::resource('language', 'LanguageController');
+        Route::namespace('Shop')->group(function () {
+            Route::resource('shop', 'ShopController');
+            Route::get('remove-image-brand', 'ShopController@removeImage')->name('brand.remove.image');
         });
     });
 });
