@@ -1,0 +1,33 @@
+header{
+  ul{
+    padding:0;
+    margin: 0;
+    li{
+    list-style: none;
+    display: inline;
+    margin-left: 20px;
+      &.country{
+        background: url(../images/united-arab-emirates.svg) no-repeat;
+        padding-left:35px;
+      }
+    }
+  }
+  .btn{
+    right:0;
+    top: 0;
+    background: none;
+    border-left: 1px solid var(--light-gray);
+    border-radius: 0;
+    color: var(--primary);
+  }
+}
+@media (max-width: 768px){
+  .country{
+    display: none;
+  }
+}
+@media (min-width: 768px){
+  .search-mobile{
+    display: none;
+  }
+}

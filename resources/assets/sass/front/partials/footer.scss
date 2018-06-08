@@ -1,5 +1,4 @@
 footer{
-  font-size: 14px;
   margin-top: 40px;
   padding-top:40px;
   .block-title{
@@ -40,11 +39,24 @@ footer{
         width: 60px;
         color: white;
         font-size: 20px;
+        &:hover{
+          transition: .1s linear;
+          -webkit-transform: scale(1.05);
+          -ms-transform: scale(1.05);
+          transform: scale(1.05);
+        }
       }
     }
     .social{
       li{
         display: inline;
+        margin-right: 10px;
+        i{
+          font-size: 24px;
+          &:hover{
+            color: var(--secondary);
+          }
+        }
       }
     }
     .footer-bottom{
@@ -57,8 +69,16 @@ footer{
       }
     }
 }/*footer*/
-@media (max-width: 576px){
+@media (max-width: 768px){
   footer{
     text-align: center;
   }
+}
+@media (min-width: 768px){
+  .copy-right{
+    text-align: right;
+  }
+}
+@media (max-width: 576px){
+
 }

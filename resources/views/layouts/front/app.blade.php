@@ -5,11 +5,10 @@
     </head>
     <body class="">
       @include('layouts.front.includes.header')
+      @include('layouts.front.includes.navbar')
       <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="main-content my-4">
           @yield('content')
-          </div>
         </div>
       </div>
       @include('layouts.front.includes.footer')
