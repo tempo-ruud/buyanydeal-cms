@@ -2,17 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: ruudvanengelenhoven
- * Date: 29/05/2018
- * Time: 19:48
+ * Date: 07/06/2018
+ * Time: 09:15
  */
 
-namespace App\Cms\Catalog\Requests;
+namespace App\Cms\Categories\Requests;
 
 use App\Cms\Base\Requests\FormRequest;
 
-class UpdateCategoryRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,9 +20,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'is_active' => 'required',
-            'slug' => 'required'
+            'name' => ['required', 'unique:categories']
         ];
     }
 }

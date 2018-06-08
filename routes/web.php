@@ -21,12 +21,20 @@ Route::group([
             Route::resource('brand', 'BrandController');
             Route::get('remove-image-brand', 'BrandController@removeImage')->name('brand.remove.image');
         });
+        Route::namespace('Category')->group(function () {
+            Route::resource('category', 'CategoryController');
+            Route::get('remove-image-brand', 'CategoryController@removeImage')->name('category.remove.image');
+        });
         Route::namespace('Dashboard')->group(function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
         });
+        Route::namespace('Product')->group(function () {
+            Route::resource('product', 'ProductController');
+            Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
+        });
         Route::namespace('Shop')->group(function () {
             Route::resource('shop', 'ShopController');
-            Route::get('remove-image-brand', 'ShopController@removeImage')->name('brand.remove.image');
+            Route::get('remove-image-brand', 'ShopController@removeImage')->name('shop.remove.image');
         });
     });
 });
